@@ -1,18 +1,13 @@
 import { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
-import {Container, Form, InputGroup, Button, Table, FormControl} from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
+import TodoForm from './components/TodoForm';
+import TodoList from './components/TodoList';
 
 function App() {
 
-  const [value, setValue] = useState('');
   const [todos, setTodos] = useState([]);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    addTodos(value)
-    setValue('')
-  }
 
   const addTodos = (str) => {
     const newTodos = [...todos, { str, complete: false }]
@@ -36,33 +31,8 @@ function App() {
     <div className="App">
       <Container>
         <h1 className='mt-4'>Todo</h1>
-        <Form onSubmit={handleSubmit}>
-          <InputGroup className="mb-3">
-            <FormControl
-              placeholder="JavaScript"
-              value={value}
-              onChange={(e) => setValue(e.target.value)}
-            />
-            <Button type="submit" variant="primary">追加</Button>
-          </InputGroup>
-        </Form>
-      </Container>
-      <Container>
-        <Table>
-          <tbody>
-            {
-              todos && todos.map((todo, index) => (
-                <tr key={index}>
-                  <th className='text-left'>{todo.str}</th>
-                  <td className='text-right'>
-                    <Button onClick={() => completeTodos(index)} variant={todo.complete ? "success" : "secondary"} className="mr-3"> {todo.complete ? '完了' : '未完了' }</Button>
-                    <Button onClick={() => removeTodos(index)} variant="danger">削除</Button>
-                  </td>
-                </tr>
-              ))
-            }
-          </tbody>
-        </Table>
+        <TodoForm addTodos={addTodos} />
+        <TodoList todos={todos} removeTodos={removeTodos} completeTodos={completeTodos}/>
       </Container>
     </div>
   );
