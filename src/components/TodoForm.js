@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { Form, InputGroup, Button, FormControl } from 'react-bootstrap';
+import { TodosContext } from '../contexts/TodosContext'
 
-const TodoForm = ({addTodos}) => {
-
+const TodoForm = () => {
+  const {addTodos} = useContext(TodosContext)
   const [value, setValue] = useState('');
   
   const handleSubmit = (e) => {

@@ -1,6 +1,9 @@
 import { Button, Table } from 'react-bootstrap';
+import { useContext } from 'react';
+import { TodosContext } from "../contexts/TodosContext"
 
-const TodoList = ({todos, removeTodos, completeTodos}) => {
+const TodoList = () => {
+  const {todos, removeTodos, completeTodos} = useContext(TodosContext)
   return (
     <div>
       <Table>
